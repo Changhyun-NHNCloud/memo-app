@@ -1,0 +1,162 @@
+# Page snapshot
+
+```yaml
+- banner:
+  - heading "📝 메모 앱" [level=1]
+  - button "새 메모":
+    - img
+    - text: 새 메모
+- main:
+  - img
+  - textbox "메모 검색..."
+  - combobox:
+    - option "전체 카테고리" [selected]
+    - option "개인 (3)"
+    - option "업무 (1)"
+    - option "학습 (1)"
+    - option "아이디어 (2)"
+    - option "기타 (0)"
+  - text: 총 7개의 메모
+  - heading "sample" [level=3]
+  - text: 개인 2025년 8월 1일 오후 02:45
+  - button "편집":
+    - img
+  - button "삭제":
+    - img
+  - paragraph: "## Sample this is test"
+  - text: "#sample"
+  - heading "프로젝트 회의 준비" [level=3]
+  - text: 업무 2025년 7월 30일 오후 02:30
+  - button "편집":
+    - img
+  - button "삭제":
+    - img
+  - paragraph: "다음 주 월요일 오전 10시 프로젝트 킥오프 미팅을 위한 준비사항: - 프로젝트 범위 정의서 작성 - 팀원별 역할 분담 - 일정 계획 수립 - 필요한 리소스 정리"
+  - text: "#회의 #프로젝트 #준비"
+  - heading "React 18 새로운 기능 학습" [level=3]
+  - text: 학습 2025년 7월 31일 오후 02:30
+  - button "편집":
+    - img
+  - button "삭제":
+    - img
+  - paragraph: "React 18에서 새로 추가된 기능들을 학습해야 함: 1. Concurrent Features 2. Automatic Batching 3. Suspense 개선사항 4. useId Hook 5. useDeferredValue Hook 이번 주말에 공식 문서를 읽고 간단한 예제를 만들어보자."
+  - text: "#React #학습 #개발"
+  - 'heading "새로운 앱 아이디어: 습관 트래커" [level=3]'
+  - text: 아이디어 2025년 7월 29일 오후 02:30
+  - button "편집":
+    - img
+  - button "삭제":
+    - img
+  - paragraph: "매일 실천하고 싶은 습관들을 관리할 수 있는 앱: 핵심 기능: - 습관 등록 및 관리 - 일일 체크인 - 진행 상황 시각화 - 목표 달성 알림 - 통계 분석 기술 스택: React Native + Supabase 출시 목표: 3개월 후"
+  - text: "#앱개발 #습관 #React Native"
+  - heading "주말 여행 계획" [level=3]
+  - text: 개인 2025년 7월 24일 오후 02:30
+  - button "편집":
+    - img
+  - button "삭제":
+    - img
+  - paragraph: "이번 주말 제주도 여행 계획: 토요일: - 오전: 한라산 등반 - 오후: 성산일출봉 관광 - 저녁: 흑돼지 맛집 방문 일요일: - 오전: 우도 관광 - 오후: 쇼핑 및 기념품 구매 - 저녁: 공항 이동 준비물: 등산화, 카메라, 선크림"
+  - text: "#여행 #제주도 #주말"
+  - heading "독서 목록" [level=3]
+  - text: 개인 2025년 7월 17일 오후 02:30
+  - button "편집":
+    - img
+  - button "삭제":
+    - img
+  - paragraph: "올해 읽고 싶은 책들: 개발 관련: - 클린 코드 (로버트 C. 마틴) - 리팩토링 2판 (마틴 파울러) - 시스템 디자인 인터뷰 (알렉스 쉬) 자기계발: - 아토믹 해빗 (제임스 클리어) - 데일 카네기 인간관계론 소설: - 82년생 김지영 (조남주) - 미드나잇 라이브러리 (매트 헤이그)"
+  - text: "#독서 #책 #자기계발"
+  - heading "성능 최적화 아이디어" [level=3]
+  - text: 아이디어 2025년 7월 20일 오후 02:30
+  - button "편집":
+    - img
+  - button "삭제":
+    - img
+  - paragraph: "웹 애플리케이션 성능 최적화 방법들: 프론트엔드: - 이미지 최적화 (WebP, lazy loading) - 코드 스플리팅 - 번들 크기 최적화 - 캐싱 전략 백엔드: - 데이터베이스 쿼리 최적화 - CDN 활용 - 서버 사이드 렌더링 - API 응답 캐싱 모니터링: - Core Web Vitals 측정 - 성능 예산 설정"
+  - text: "#성능 #최적화 #웹개발"
+- heading "새 메모 작성" [level=2]
+- button:
+  - img
+- text: 제목 *
+- textbox "제목 *": 새 테스트 메모
+- text: 카테고리
+- combobox "카테고리":
+  - option "개인" [selected]
+  - option "업무"
+  - option "학습"
+  - option "아이디어"
+  - option "기타"
+- text: 내용 * (마크다운 지원)
+- list:
+  - listitem:
+    - button "Add bold text (ctrl + b)":
+      - img
+  - listitem:
+    - button "Add italic text (ctrl + i)":
+      - img
+  - listitem:
+    - button "Add strikethrough text (ctrl + shift + x)":
+      - img
+  - listitem:
+    - button "Insert HR (ctrl + h)":
+      - img
+  - listitem:
+    - button "Insert title":
+      - img
+  - listitem
+  - listitem:
+    - button "Add a link (ctrl + l)":
+      - img
+  - listitem:
+    - button "Insert a quote (ctrl + q)":
+      - img
+  - listitem:
+    - button "Insert code (ctrl + j)":
+      - img
+  - listitem:
+    - button "Insert Code Block (ctrl + shift + j)":
+      - img
+  - listitem:
+    - button "Insert comment (ctrl + /)":
+      - img
+  - listitem:
+    - button "Add image (ctrl + k)":
+      - img
+  - listitem:
+    - button "Add table":
+      - img
+  - listitem
+  - listitem:
+    - button "Add unordered list (ctrl + shift + u)":
+      - img
+  - listitem:
+    - button "Add ordered list (ctrl + shift + o)":
+      - img
+  - listitem:
+    - button "Add checked list (ctrl + shift + c)":
+      - img
+  - listitem
+  - listitem:
+    - button "Open help":
+      - img
+- list:
+  - listitem:
+    - button "Edit code (ctrl + 7)":
+      - img
+  - listitem:
+    - button "Live code (ctrl + 8)":
+      - img
+  - listitem:
+    - button "Preview code (ctrl + 9)":
+      - img
+  - listitem
+  - listitem:
+    - button "Toggle fullscreen (ctrl + 0)":
+      - img
+- textbox "메모 내용을 마크다운으로 입력하세요..."
+- text: 태그
+- textbox "태그를 입력하고 Enter를 누르세요"
+- button "추가"
+- button "취소"
+- button "저장하기"
+- alert
+```
