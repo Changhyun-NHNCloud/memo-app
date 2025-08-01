@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback, useMemo } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import { Memo, MemoFormData } from '@/types/memo'
-import { localStorageUtils } from '@/utils/localStorage'
+import { supabaseUtils } from '@/utils/supabaseUtils'
 import { seedSampleData } from '@/utils/seedData'
 
 export const useMemos = () => {
@@ -14,21 +14,32 @@ export const useMemos = () => {
 
   // 메모 로드
   useEffect(() => {
-    setLoading(true)
-    try {
-      // 샘플 데이터 시딩 (기존 데이터가 없을 때만)
-      seedSampleData()
-      const loadedMemos = localStorageUtils.getMemos()
-      setMemos(loadedMemos)
-    } catch (error) {
-      console.error('Failed to load memos:', error)
-    } finally {
-      setLoading(false)
+    const loadMemos = async () => {
+      setLoading(true)
+      try {
+        const loadedMemos = await supabaseUtils.getMemos()
+        
+        // 메모가 없으면 샘플 데이터 시딩
+        if (loadedMemos.length === 0) {
+          await seedSampleData()
+          // 샘플 데이터 시딩 후 다시 로드
+          const newLoadedMemos = await supabaseUtils.getMemos()
+          setMemos(newLoadedMemos)
+        } else {
+          setMemos(loadedMemos)
+        }
+      } catch (error) {
+        console.error('Failed to load memos:', error)
+      } finally {
+        setLoading(false)
+      }
     }
+
+    loadMemos()
   }, [])
 
   // 메모 생성
-  const createMemo = useCallback((formData: MemoFormData): Memo => {
+  const createMemo = useCallback(async (formData: MemoFormData): Promise<Memo | null> => {
     const newMemo: Memo = {
       id: uuidv4(),
       ...formData,
@@ -36,15 +47,18 @@ export const useMemos = () => {
       updatedAt: new Date().toISOString(),
     }
 
-    localStorageUtils.addMemo(newMemo)
-    setMemos(prev => [newMemo, ...prev])
+    const addedMemo = await supabaseUtils.addMemo(newMemo)
+    if (addedMemo) {
+      setMemos(prev => [addedMemo, ...prev])
+      return addedMemo
+    }
 
-    return newMemo
+    return null
   }, [])
 
   // 메모 업데이트
   const updateMemo = useCallback(
-    (id: string, formData: MemoFormData): void => {
+    async (id: string, formData: MemoFormData): Promise<void> => {
       const existingMemo = memos.find(memo => memo.id === id)
       if (!existingMemo) return
 
@@ -54,16 +68,20 @@ export const useMemos = () => {
         updatedAt: new Date().toISOString(),
       }
 
-      localStorageUtils.updateMemo(updatedMemo)
-      setMemos(prev => prev.map(memo => (memo.id === id ? updatedMemo : memo)))
+      const result = await supabaseUtils.updateMemo(updatedMemo)
+      if (result) {
+        setMemos(prev => prev.map(memo => (memo.id === id ? result : memo)))
+      }
     },
     [memos]
   )
 
   // 메모 삭제
-  const deleteMemo = useCallback((id: string): void => {
-    localStorageUtils.deleteMemo(id)
-    setMemos(prev => prev.filter(memo => memo.id !== id))
+  const deleteMemo = useCallback(async (id: string): Promise<void> => {
+    const success = await supabaseUtils.deleteMemo(id)
+    if (success) {
+      setMemos(prev => prev.filter(memo => memo.id !== id))
+    }
   }, [])
 
   // 메모 검색
@@ -108,11 +126,13 @@ export const useMemos = () => {
   }, [memos, selectedCategory, searchQuery])
 
   // 모든 메모 삭제
-  const clearAllMemos = useCallback((): void => {
-    localStorageUtils.clearMemos()
-    setMemos([])
-    setSearchQuery('')
-    setSelectedCategory('all')
+  const clearAllMemos = useCallback(async (): Promise<void> => {
+    const success = await supabaseUtils.clearMemos()
+    if (success) {
+      setMemos([])
+      setSearchQuery('')
+      setSelectedCategory('all')
+    }
   }, [])
 
   // 통계 정보
